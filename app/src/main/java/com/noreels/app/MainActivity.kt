@@ -11,6 +11,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.Switch
@@ -82,7 +83,7 @@ class MainActivity : Activity() {
             background = GradientDrawable(GradientDrawable.Orientation.TL_BR, intArrayOf(purple, Color.rgb(129, 83, 218))).apply { cornerRadius = dp(15).toFloat() }
         }
         row.addView(logo, LinearLayout.LayoutParams(dp(48), dp(48)))
-        val texts = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(dp(12), 0, 0, 0); addView(label("NoReels", 21f, ink, true)); addView(label(subtitle, 10f, muted)) }
+        val texts = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(dp(12), 0, 0, 0); addView(label("FOCUS", 21f, ink, true)); addView(label(subtitle, 10f, muted)) }
         row.addView(texts, LinearLayout.LayoutParams(0, -2, 1f))
         val active = isBlockerEnabled()
         val pill = label(if (active) "● ACTIVE" else "○ SETUP", 10f, if (active) green else purple, true).apply {

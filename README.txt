@@ -1,20 +1,16 @@
-NoReels — Focus dashboard update
+FOCUS — Android app project
+==========================
 
-Includes:
-- Refreshed dashboard UI and blocker setup status.
-- Separate YouTube Shorts and Instagram Reels toggles.
-- Local daily blocked-screen count and lifetime blocked count.
-- Focus streak based on days with at least one detected block.
-- Adjustable daily blocking goal (increase/decrease by 5, from 1 to 100).
+This project uses the FOCUS brand/logo and includes a home dashboard, blocker controls,
+local blocking counts, a daily goal setting, and bottom navigation where implemented.
 
-Build:
-1. Open this folder in Android Studio and allow Gradle to sync.
-2. Connect an Android device, then press Run, or use Build > Build APK(s).
-3. Open NoReels and enable the accessibility service from the setup card.
-4. Choose which platforms to block.
+Build without Android Studio:
+1. Upload the CONTENTS of this folder to the root of your existing GitHub repository.
+2. Ensure the hidden .github/workflows/build-apk.yml file is uploaded.
+3. Commit changes and open the Actions tab.
+4. Open the successful workflow run and download the NoReels-debug-apk artifact.
+5. Extract the artifact ZIP to get app-debug.apk and install it on your Android phone.
 
-Privacy and accuracy notes:
-- Statistics are stored locally in the app's SharedPreferences; no account or network is used.
-- The daily goal measures detected blocking events, NOT total screen time or minutes saved.
-- Counters only increase when the service detects a configured Shorts/Reels screen identifier and sends Back.
-- YouTube/Instagram can change screen identifiers in updates, so detection may need maintenance.
+Note: The package/application ID remains com.noreels.app to support updating an existing
+installation signed with the same key. The display name is FOCUS. The APK has not been
+built or tested as part of preparing this ZIP.
