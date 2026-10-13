@@ -1,0 +1,3 @@
+<resources>
+    <string name="service_desc">Detects YouTube Shorts and Instagram Reels screens and returns you to the previous screen.</string>
+</resources>
