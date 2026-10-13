@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources><color name="focus_icon_background">#080A0E</color></resources>
+<resources>
+    <!-- Unique name to avoid duplicate resource errors -->
+    <color name="focus_icon_background_alt">#080A0E</color>
+</resources>
