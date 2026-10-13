@@ -10,3 +10,6 @@ BUILD FOCUS WITHOUT ANDROID STUDIO
 8. Extract the artifact ZIP; install app-debug.apk on your Android device.
 
 The APK has not been compiled or tested here. If the workflow fails, share the error log.
+
+CALENDAR / REMINDER UPDATE
+Insights now has a monthly calendar, daily goal controls, a daily reminder time, a selectable notification tone, and vibration. Test the reminder on your phone after installing the APK. Android may restrict background alarms or sounds based on battery and notification settings.

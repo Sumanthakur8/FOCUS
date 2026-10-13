@@ -18,6 +18,19 @@ class BlockerService : AccessibilityService() {
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         val pkg = event?.packageName?.toString() ?: return
         val prefs = getSharedPreferences("noreels", MODE_PRIVATE)
+        // User-selected apps are blocked completely, except YouTube and Instagram,
+        // which have dedicated Shorts/Reels-only controls below.
+        val selectedApps = prefs.getStringSet("blocked_apps", emptySet()) ?: emptySet()
+        if (pkg != "com.google.android.youtube" && pkg != "com.instagram.android" && selectedApps.contains(pkg)) {
+            val now = System.currentTimeMillis()
+            if (now - lastBlock > 1200) {
+                lastBlock = now
+                recordBlock(prefs, now)
+                performGlobalAction(GLOBAL_ACTION_BACK)
+                android.widget.Toast.makeText(this, "App blocked by FOCUS", android.widget.Toast.LENGTH_SHORT).show()
+            }
+            return
+        }
         val ids = when {
             pkg == "com.google.android.youtube" && prefs.getBoolean("yt", true) -> ytIds
             pkg == "com.instagram.android" && prefs.getBoolean("ig", true) -> igIds
@@ -29,14 +42,18 @@ class BlockerService : AccessibilityService() {
         if (found && now - lastBlock > 1200) {
             lastBlock = now
             // Count a successful block locally for today's focus progress and lifetime stats.
-            val day = SimpleDateFormat("yyyyMMdd", Locale.US).format(Date(now))
-            prefs.edit()
-                .putInt("blocked_$day", prefs.getInt("blocked_$day", 0) + 1)
-                .putInt("blocked_total", prefs.getInt("blocked_total", 0) + 1)
-                .apply()
+            recordBlock(prefs, now)
             performGlobalAction(GLOBAL_ACTION_BACK)
-            Toast.makeText(this, "Blocked by NoReels", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Blocked by FOCUS", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun recordBlock(prefs: android.content.SharedPreferences, now: Long) {
+        val day = SimpleDateFormat("yyyyMMdd", Locale.US).format(Date(now))
+        prefs.edit()
+            .putInt("blocked_$day", prefs.getInt("blocked_$day", 0) + 1)
+            .putInt("blocked_total", prefs.getInt("blocked_total", 0) + 1)
+            .apply()
     }
 
     override fun onInterrupt() {}
