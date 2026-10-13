@@ -3,6 +3,9 @@ package com.noreels.app
 import android.accessibilityservice.AccessibilityService
 import android.view.accessibility.AccessibilityEvent
 import android.widget.Toast
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class BlockerService : AccessibilityService() {
     private var lastBlock = 0L
@@ -25,6 +28,12 @@ class BlockerService : AccessibilityService() {
         val now = System.currentTimeMillis()
         if (found && now - lastBlock > 1200) {
             lastBlock = now
+            // Count a successful block locally for today's focus progress and lifetime stats.
+            val day = SimpleDateFormat("yyyyMMdd", Locale.US).format(Date(now))
+            prefs.edit()
+                .putInt("blocked_$day", prefs.getInt("blocked_$day", 0) + 1)
+                .putInt("blocked_total", prefs.getInt("blocked_total", 0) + 1)
+                .apply()
             performGlobalAction(GLOBAL_ACTION_BACK)
             Toast.makeText(this, "Blocked by NoReels", Toast.LENGTH_SHORT).show()
         }

@@ -1,0 +1,21 @@
+BUILD NOREELS WITHOUT INSTALLING ANDROID STUDIO
+
+This project includes a GitHub Actions workflow that can build the APK in the cloud.
+You need a GitHub account and a web browser. No Android Studio is needed.
+
+1. Sign in to https://github.com/ and create a new repository. A private repository is fine.
+2. On the new repository page, choose the option to upload existing files.
+3. Extract this ZIP on your computer first. Open the extracted NoReels-Redesigned folder.
+4. Upload the CONTENTS of that folder (including the hidden .github folder) to the repository root. Do not upload the ZIP itself.
+   If the website's file picker hides .github, use GitHub's web editor to create .github/workflows/build-apk.yml and paste the workflow from this project.
+5. Commit the files to the main branch.
+6. Open the repository's Actions tab and select "Build NoReels APK". If it has not run automatically, choose "Run workflow".
+7. Wait for the workflow to finish. If it fails, open the run and check the logs.
+8. On a successful run, open the run page, scroll to Artifacts, and download "NoReels-debug-apk".
+9. Extract the artifact ZIP; it contains app-debug.apk. Transfer it to your Android phone and open it to install. You may need to allow installs from your browser or file manager.
+10. Open NoReels and enable its accessibility service in Android Settings.
+
+IMPORTANT
+- This creates a debug APK for personal testing, not a Play Store release.
+- The build has not been run or verified by the authoring environment. If the cloud build fails, share the error log so it can be fixed.
+- Accessibility permission is powerful. NoReels uses it to detect supported Shorts/Reels screens and return to the previous screen. Detection can break if YouTube or Instagram changes its UI identifiers.
